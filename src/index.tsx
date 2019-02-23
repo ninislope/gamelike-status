@@ -13,4 +13,5 @@ ReactDOM.render(<App store={store} />, document.getElementById('root'));
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
+store.tryLoad();
 // fetch("data.json").then((res) => res.json()).then(obj => store.setJSON(obj));
