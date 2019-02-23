@@ -5,6 +5,7 @@
     background: #600;
     margin: .3em;
     padding: .1em .2em;
+    overflow: auto;
 }
 
 .active {

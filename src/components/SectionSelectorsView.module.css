@@ -3,6 +3,7 @@
     border-bottom: 1px solid #fff;
     box-sizing: border-box;
     height: 100%;
+    overflow: auto;
 }
 
 .button {
@@ -17,4 +18,8 @@
 .active {
     color: #333;
     background: #fff;
+}
+
+.input {
+    width: 9em;
 }

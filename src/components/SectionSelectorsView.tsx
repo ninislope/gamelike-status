@@ -14,7 +14,7 @@ export const SectionSelectorsView = injectSafe("ui")(observer<React.SFC<{section
                     {
                         ui.editable ?
                         <>
-                            <input value={section.name} onChange={({target}) => section.name = target.value}/>
+                            <input className={style.input} value={section.name} onChange={({target}) => section.name = target.value}/>
                             <button onClick={() => confirm(`セクション[${section.name || ""}]を削除しますか？`) && sections.splice(index, 1)}>×</button>
                         </> :
                         section.name
