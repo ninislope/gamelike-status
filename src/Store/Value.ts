@@ -50,6 +50,14 @@ export class Value implements IValue {
         ].filter(v => v != undefined && v !== "").join(" ");
     }
 
+    @computed get nameWithValue() {
+        if (this.value != undefined && this.value !== "") {
+            return this.fullName;
+        } else {
+            return this.name;
+        }
+    }
+
     withReference(refValue: Value) {
         return new Value({
             name: this.name,
