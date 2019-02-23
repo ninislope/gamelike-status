@@ -27,7 +27,9 @@
     "eject": "react-scripts eject",
     "tcm": "tcm -w -p src/**/*.module.css",
     "tcm:clean": "shx rm \"src/**/*.css.d.ts\"",
-    "tcm:reset": "npm-run-all tcm:clean tcm"
+    "tcm:reset": "npm-run-all tcm:clean tcm",
+    "firebase": "firebase deploy",
+    "deploy": "npm-run-all build firebase"
   },
   "eslintConfig": {
     "extends": "react-app"
