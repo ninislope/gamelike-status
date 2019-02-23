@@ -16,7 +16,10 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
                     store.loginUid ? (
                         store.loginUid === store.dataUid && (
                             store.ui.editable ?
-                            <button onClick={() => store.trySave()}>保存</button> :
+                            <>
+                                <button onClick={() => store.trySave()}>保存</button>
+                                <button onClick={() => { if (confirm("変更した内容が失われます。よろしいですか？")) location.href = location.href; }}>キャンセル</button>
+                            </> :
                             <button onClick={() => store.tryEdit()}>編集</button>
                         )
                     ) :
