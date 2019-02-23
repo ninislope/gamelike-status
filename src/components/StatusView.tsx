@@ -15,6 +15,7 @@ export const StatusView = injectSafe("ui")(observer<React.SFC<{character: Charac
     if (!period) {
         return <div className={style.wrapper}><div>時期を選択して下さい</div></div>;
     }
+    const previousPeriod = character.period(ui.period - 1);
     const page = period && period.pages.length && period.page(ui.page);
 
     return <div className={style.wrapper}>
@@ -26,7 +27,7 @@ export const StatusView = injectSafe("ui")(observer<React.SFC<{character: Charac
             }
         </div>
         <div key="PageSelectorsView">
-            <PageSelectorsView pages={period.pages} />
+            <PageSelectorsView pages={period.pages} previousPeriod={previousPeriod} />
         </div>
     </div>;
 }));
