@@ -5,6 +5,7 @@ import { injectSafe } from "../injectSafe";
 import classNames from "classnames";
 import { UI } from "../Store/UI";
 import { Value } from "../Store/Value";
+import { ManipulateButtons } from "./ManipulateButtons";
 
 export const ValueSelectorsView = injectSafe("ui")(observer<React.SFC<{values: Value[] | undefined; sectionIndex: number; ui: UI}>>(({values, sectionIndex, ui}) =>
     values ?
@@ -13,7 +14,7 @@ export const ValueSelectorsView = injectSafe("ui")(observer<React.SFC<{values: V
             values.map((value, index) =>
                 <div className={classNames(style.button, {[style.active]: ui.valueBySection(sectionIndex) === index})} onClick={() => ui.valueBySection(sectionIndex, index)}>
                     {value.nameWithValue}
-                    {ui.editable && <button onClick={() => confirm(`${value.nameWithValue} を削除しますか？`) && values.splice(index, 1)}>×</button>}
+                    {ui.editable && <ManipulateButtons items={values} index={index} nameKey="nameWithValue" typeName="値" after={(afterIndex) => ui.valueBySection(sectionIndex, afterIndex)} />}
                 </div>
             )
         }

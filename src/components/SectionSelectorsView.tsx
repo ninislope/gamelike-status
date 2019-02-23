@@ -5,6 +5,7 @@ import { injectSafe } from "../injectSafe";
 import classNames from "classnames";
 import { UI } from "../Store/UI";
 import { Section } from "../Store/Section";
+import { ManipulateButtons } from "./ManipulateButtons";
 
 export const SectionSelectorsView = injectSafe("ui")(observer<React.SFC<{sections: Section[]; ui: UI}>>(({sections, ui}) =>
     <div className={style.wrapper}>
@@ -15,7 +16,7 @@ export const SectionSelectorsView = injectSafe("ui")(observer<React.SFC<{section
                         ui.editable ?
                         <>
                             <input className={style.input} value={section.name} onChange={({target}) => section.name = target.value}/>
-                            <button onClick={() => confirm(`セクション[${section.name || ""}]を削除しますか？`) && sections.splice(index, 1)}>×</button>
+                            <ManipulateButtons items={sections} index={index} nameKey="name" typeName="セクション" direction="horizontal" after={(afterIndex) => ui.section = afterIndex} />
                         </> :
                         section.name
                     }

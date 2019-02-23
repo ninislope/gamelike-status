@@ -6,6 +6,7 @@ import { injectSafe } from "../injectSafe";
 import { TagsView } from "./TagsView";
 import { Section } from "../Store/Section";
 import { UI } from "../Store/UI";
+import { ManipulateButtons } from "./ManipulateButtons";
 
 export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; ui: UI}>>(({values, index, typeValue, ui}) => {
     const currentValue = values[index];
@@ -35,7 +36,7 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
             }
             <TagsView tags={value.tags} editable={false} />
             {ui.editable && !refValue && <span className={style.noRefWarn}>参照先ステートなし</span>}
-            {ui.editable && <button onClick={() => confirm(`値[${value.fullName}]を削除しますか？`) && values.splice(index, 1)}>×</button>}
+            {ui.editable && <ManipulateButtons items={values} nameKey="fullName" index={index} typeName="値" />}
         </div>
     </div>;
 }));

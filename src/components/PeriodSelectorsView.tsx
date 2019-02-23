@@ -5,6 +5,7 @@ import { Character } from "../Store/Character";
 import * as style from "./PeriodSelectorsView.module.css";
 import { UI } from "../Store/UI";
 import { Period } from "../Store/Period";
+import { ManipulateButtons } from "./ManipulateButtons";
 
 export const PeriodSelectorsView = observer<React.SFC<{character: Character; ui: UI}>>(({character, ui}) =>
     <div className={style.wrapper}>
@@ -17,7 +18,7 @@ export const PeriodSelectorsView = observer<React.SFC<{character: Character; ui:
                         <input className={style.input} value={period.name} onChange={({target}) => period.name = target.value} /> :
                         period.name == undefined ? "*" : period.name
                     }
-                    {ui.editable && <button onClick={() => confirm(`時期[${period.name || ""}]を削除しますか？`) && character.periods.splice(index, 1)}>×</button>}
+                    {ui.editable && <ManipulateButtons items={character.periods} nameKey="name" index={index} typeName="時期" after={(afterIndex) => ui.period = afterIndex} /> }
                 </div>
             )
         }
