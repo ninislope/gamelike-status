@@ -18,6 +18,12 @@ export class Firebase {
         return user ? user.uid : undefined;
     }
 
+    static watchLoginUid(cb: (uid: string | undefined) => any) {
+        firebase.auth().onAuthStateChanged((user) => {
+            cb(user ? user.uid : undefined);
+        });
+    }
+
     static async getUid() {
         return this.uid || await this.login();
     }

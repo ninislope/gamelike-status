@@ -7,7 +7,7 @@ import { Firebase } from "./Firebase";
 const initUrl = new URL(location.href);
 
 export class Store {
-    @observable loginUid = Firebase.uid;
+    @observable loginUid?: string;
     @observable dataId = initUrl.searchParams.get("id") || undefined;
     @observable dataUid = initUrl.searchParams.get("uid") || undefined;
     @observable characters: Character[] = [];
