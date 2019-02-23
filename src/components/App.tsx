@@ -30,7 +30,8 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
                 <input type="radio" checked={store.ui.viewMode === "typeValues"} onChange={() => store.ui.viewMode = "typeValues"} />
                 ステート一覧
             </label>
-            <button onClick={() => downloadFile(JSON.stringify(store.toJSON(), null, "  "))}>現在のデータを保存</button>
+            {false && <button onClick={() => downloadFile(JSON.stringify(store.toJSON(), null, "  "))}>ダウンロード</button>}
+            <button onClick={() => share()}>シェア</button>
         </header>
         <Provider store={store}>
             <Provider ui={store.ui}>
@@ -59,6 +60,16 @@ function downloadFile(str: string) {
     const a = document.createElement("a");
     document.body.appendChild(a);
     a.href = url;
+    a.download = "data.json";
+    a.click();
+    a.remove();
+}
+
+function share() {
+    const a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = `https://twitter.com/share?url=${encodeURIComponent(location.href)}`;
+    a.target = "_blank";
     a.download = "data.json";
     a.click();
     a.remove();
