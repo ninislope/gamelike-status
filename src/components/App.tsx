@@ -10,19 +10,21 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
     <>
         <header className={styles.header}>
             <h1>ゲーム風ステータス</h1>
-            <a href="/">新しくステータスを作る</a>
-            {
-                store.loginUid ? (
-                    store.loginUid === store.dataUid && (
-                        store.ui.editable ?
-                        <button onClick={() => store.trySave()}>保存</button> :
-                        <button onClick={() => store.tryEdit()}>編集</button>
-                    )
-                ) :
-                <button onClick={() => store.tryLogin()}>編集するにはログインしてください</button>
-            }
-            {
-            }
+            <div><a href="/">新しくステータスを作る</a></div>
+            <div>
+                {
+                    store.loginUid ? (
+                        store.loginUid === store.dataUid && (
+                            store.ui.editable ?
+                            <button onClick={() => store.trySave()}>保存</button> :
+                            <button onClick={() => store.tryEdit()}>編集</button>
+                        )
+                    ) :
+                    <button onClick={() => store.tryLogin()}>編集するにはログインしてください</button>
+                }
+                {false && <button onClick={() => downloadFile(JSON.stringify(store.toJSON(), null, "  "))}>ダウンロード</button>}
+                <button onClick={() => share()}>シェア</button>
+            </div>
             <label>
                 <input type="radio" checked={store.ui.viewMode === "characters"} onChange={() => store.ui.viewMode = "characters"} />
                 キャラクターステータス
@@ -31,8 +33,6 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
                 <input type="radio" checked={store.ui.viewMode === "typeValues"} onChange={() => store.ui.viewMode = "typeValues"} />
                 ステート一覧
             </label>
-            {false && <button onClick={() => downloadFile(JSON.stringify(store.toJSON(), null, "  "))}>ダウンロード</button>}
-            <button onClick={() => share()}>シェア</button>
         </header>
         <Provider store={store}>
             <Provider ui={store.ui}>
