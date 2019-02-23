@@ -29,7 +29,16 @@ export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Sec
             section.values.map((value, index) => <ValueView values={section.values} index={index} typeValue={typeValue} />)
         }
         {
-            ui.editable && <button onClick={() => section.values.push(new Value({name: "*"}))}>値を追加</button>
+            ui.editable &&
+            <div>
+                <button onClick={() => section.values.push(new Value({name: "*"}))}>値を追加</button>
+                {
+                    typeValue && <button onClick={() =>
+                    confirm(`[${section.name || ""}]の項目を全てコピーしますか？`) &&
+                    typeValue.values.map(value => section.values.push(new Value({name: value.name, value: value.value})))
+                    }>同名ステート一覧から項目をコピー</button>
+                }
+            </div>
         }
     </div>
 }));
