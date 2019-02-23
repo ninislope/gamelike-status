@@ -4,5 +4,6 @@
     padding: .7em;
     box-sizing: border-box;
     display: grid;
-    grid-template: 1fr 4em / 100%;
+    grid-template: 1fr 4.5em / 100%;
+    overflow: auto;
 }
