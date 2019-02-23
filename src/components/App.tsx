@@ -20,7 +20,7 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
                             <button onClick={() => store.tryEdit()}>編集</button>
                         )
                     ) :
-                    <button onClick={() => store.tryLogin()}>編集するにはログインしてください</button>
+                    <button onClick={() => store.tryLogin()}>ログイン</button>
                 }
                 {false && <button onClick={() => downloadFile(JSON.stringify(store.toJSON(), null, "  "))}>ダウンロード</button>}
                 <button onClick={() => share()}>シェア</button>
@@ -50,7 +50,7 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
             {
                 store.loginUid ?
                 <><label>IDを決める</label><input id="id"/><button onClick={() => store.setId((document.getElementById("id") as HTMLInputElement).value)}>決定</button></> :
-                <button onClick={() => store.tryLogin()}>編集するにはログインしてください</button>
+                <button onClick={() => store.tryLogin()}>ログイン</button>
             }
         </header>
     </>
