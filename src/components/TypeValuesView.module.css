@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template: 4em 1fr / 100%;
+    grid-template: 5em 1fr / 100%;
     border: 1px solid #333;
     width: 55em;
     height: 40em;
