@@ -10,6 +10,7 @@ export const App = observer<React.SFC<{store: Store}>>(({store}) =>
     <>
         <header className={styles.header}>
             <h1>ゲーム風ステータス</h1>
+            <a href="/">新しくステータスを作る</a>
             {
                 store.loginUid ? (
                     store.loginUid === store.dataUid && (
