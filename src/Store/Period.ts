@@ -1,6 +1,7 @@
 import { action, observable } from "mobx";
 import { Page } from "./Page";
 import { Section } from "./Section";
+import { Visual } from "./Visual";
 
 export class Period {
     static fromJSON(obj: any) {
@@ -15,18 +16,18 @@ export class Period {
     @observable name?: string;
     @observable sections: Section[] = [];
     @observable pages: Page[] = [];
-    @observable images: string[] = [];
+    @observable visuals: Visual[] = [];
 
-    constructor(props?: {name?: string; sections?: Section[]; pages?: Page[]; images?: string[]}) {
+    constructor(props?: {name?: string; sections?: Section[]; pages?: Page[]; images?: Visual[]}) {
         if (props) {
             this.name = props.name;
             if (props.sections) this.sections = props.sections;
             if (props.pages) this.pages = props.pages;
-            if (props.images) this.images = props.images;
+            if (props.images) this.visuals = props.images;
         }
     }
 
     section(index: number) { return this.sections[index] as Section | undefined; }
     page(index: number) { return this.pages[index] as Page | undefined; }
-    image(index: number) { return this.images[index] as string | undefined; }
+    visual(index: number) { return this.visuals[index] as Visual | undefined; }
 }

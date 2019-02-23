@@ -14,7 +14,7 @@ export const CharacterView = injectSafe("ui")(observer<React.SFC<{character: Cha
         </div>
         <div className={style.visual}>
             {
-                character.period(ui.period) && character.period(ui.period)!.image(0) ? <img src={character.period(ui.period)!.image(0)} /> : <></>
+                character.period(ui.period) && character.period(ui.period)!.visual(0) ? <img src={character.period(ui.period)!.visual(0)!.filename} /> : <></>
             }
         </div>
         <div className={style.status}>
