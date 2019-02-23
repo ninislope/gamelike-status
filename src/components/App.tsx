@@ -71,7 +71,6 @@ function share() {
     document.body.appendChild(a);
     a.href = `https://twitter.com/share?url=${encodeURIComponent(location.href)}`;
     a.target = "_blank";
-    a.download = "data.json";
     a.click();
     a.remove();
 }
