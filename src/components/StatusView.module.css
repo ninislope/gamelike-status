@@ -1,0 +1,8 @@
+.wrapper {
+    background: #333;
+    height: 100%;
+    padding: .7em;
+    box-sizing: border-box;
+    display: grid;
+    grid-template: 1fr 4em / 100%;
+}

@@ -1,0 +1,20 @@
+.wrapper {
+    display: grid;
+    grid-template: 100% / 7em 1fr 1fr;
+    border: 1px solid #333;
+    width: 55em;
+    height: 40em;
+}
+
+.periods {
+
+}
+
+.visual {
+    height: 100%;
+    overflow: hidden;
+}
+
+.status {
+
+}

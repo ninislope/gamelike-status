@@ -1,0 +1,20 @@
+.wrapper {
+    background: #333;
+    border-right: 1px solid #fff;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.button {
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    background: #600;
+    margin: .3em;
+    padding: .1em .2em;
+}
+
+.active {
+    color: #333;
+    background: #fff;
+}

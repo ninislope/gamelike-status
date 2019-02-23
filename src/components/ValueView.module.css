@@ -1,0 +1,37 @@
+.wrapper {
+
+}
+
+.name {
+    display: inline-block;
+    color: #fff;
+}
+
+.nameInput {
+    width: 9em;
+}
+
+.valueLabel {
+    display: inline-block;
+    color: #fff;
+    margin-left: 1em;
+}
+
+.valueLabelInput {
+    width: 6em;
+}
+
+.preValue {
+}
+
+.value {
+}
+
+.postValue {
+}
+
+.noRefWarn {
+    color: #fff;
+    background: #c00;
+    font-size: .5rem;
+}

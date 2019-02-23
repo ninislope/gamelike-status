@@ -1,0 +1,19 @@
+.wrapper {
+    padding: .4em 0;
+    border-bottom: 1px solid #fff;
+}
+
+.name {
+    color: #ff0;
+    font-weight: normal;
+}
+
+.description {
+    color: #999;
+    font-size: .8rem;
+}
+
+.title {
+    color: #fff;
+    font-weight: bold;
+}

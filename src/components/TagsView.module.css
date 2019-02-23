@@ -1,0 +1,11 @@
+.tags {
+
+}
+
+.tag {
+    display: inline-block;
+    color: #fff;
+    font-size: .7rem;
+    padding: .2em .4em;
+    border: 1px solid #fff;
+}

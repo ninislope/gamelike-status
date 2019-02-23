@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "STATUS",
+  "definitions": {
+    "Value": {
+      "description": "Value / Label",
+      "type": "object",
+      "required": [ "name" ],
+      "properties": {
+        "type": { "type": "string", "enum": ["add", "remove", "change"] },
+        "name": { "type": "string" },
+        "value": { "type": ["string", "number"] },
+        "preValue": { "type": "string" },
+        "postValue": { "type": "string" },
+        "summary": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "color": { "type": "string" },
+        "size": { "type": "string" }
+      }
+    },
+    "Section": {
+      "description": "Section",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "values": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Value" }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "typeValues": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Section" }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "periods": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "sections": {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/Section" }
+                },
+                "pages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "sections": {
+                        "type": "array",
+                        "items": { "$ref": "#/definitions/Section" }
+                      }
+                    }
+                  }
+                },
+                "images": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

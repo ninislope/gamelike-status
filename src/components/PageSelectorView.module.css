@@ -1,0 +1,17 @@
+.wrapper {
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    background: #600;
+    margin: .3em;
+    padding: .1em .2em;
+}
+
+.active {
+    color: #333;
+    background: #fff;
+}
+
+.input {
+    width: 5em;
+}

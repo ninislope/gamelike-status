@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/classnames": "^2.2.7",
     "@types/jest": "24.0.6",
     "@types/node": "11.9.4",
     "@types/react": "16.8.3",
     "@types/react-dom": "16.8.2",
+    "classnames": "^2.2.6",
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
+    "npm-run-all": "^4.1.5",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
+    "shx": "^0.3.2",
     "typed-css-modules": "^0.3.7",
     "typescript": "3.3.3"
   },
@@ -20,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tcm": "tcm -w -p src/**/*.module.css"
+    "tcm": "tcm -w -p src/**/*.module.css",
+    "tcm:clean": "shx rm \"src/**/*.css.d.ts\"",
+    "tcm:reset": "npm-run-all tcm:clean tcm"
   },
   "eslintConfig": {
     "extends": "react-app"
