@@ -9,6 +9,7 @@ import { Store } from "../Store";
 import { Value } from "../Store/Value";
 import { ManipulateButtons } from "./ManipulateButtons";
 import { InputValue } from "./InputValue";
+import { InputBoolean } from "./InputBoolean";
 
 export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Section[]; index: number; store: Store}>>(({sections, index, store}) => {
     const section = sections[index];
@@ -32,6 +33,9 @@ export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Sec
             ui.editable ?
             <div className={style.description}><InputValue item={section} nameKey="description" placeholder="説明" /></div> :
             Boolean(section.description) && <div className={style.description}>{section.description}</div>
+        }
+        {
+            ui.editable && <label><InputBoolean item={ui} nameKey="editValueStyle" /><span className={style.title}>個別スタイルを編集</span></label>
         }
         {
             section.values.map((value, index) => <ValueView values={section.values} index={index} typeValue={typeValue} />)

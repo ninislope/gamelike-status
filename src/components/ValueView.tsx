@@ -8,6 +8,7 @@ import { Section } from "../Store/Section";
 import { UI } from "../Store/UI";
 import { ManipulateButtons } from "./ManipulateButtons";
 import { InputValue } from "./InputValue";
+import { InputBoolean } from "./InputBoolean";
 
 export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI}>>(({values, index, typeValue, editable, ui}) => {
     const currentValue = values[index];
@@ -17,7 +18,7 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
 
     return <div className={style.wrapper}>
         <div onClick={() => ui.modal}>
-            <span className={style.name} style={value.style}>
+            <span className={style.name} style={value.nameStyle}>
                 {editable ? <InputValue className={style.nameInput} value={value.name} item={currentValue} nameKey="name" /> : value.name}
             </span>
             {
@@ -30,7 +31,7 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
                 </span> :
                 value.value != undefined && value.value !== "" &&
-                <span className={style.valueLabel} style={value.style}>
+                <span className={style.valueLabel} style={value.valueStyle}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>{value.value}</span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
@@ -39,6 +40,17 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
             <TagsView tags={value.tags} editable={false} />
             {editable && !refValue && <span className={style.noRefWarn}>参照先ステートなし</span>}
             {editable && <ManipulateButtons items={values} nameKey="fullName" index={index} typeName="値" />}
+            {
+                editable && ui.editValueStyle && <div className={style.style}>
+                    <span className={style.title}>色</span>
+                    <InputValue className={style.styleInput} value={value.color} item={currentValue} nameKey="color" placeholder="#fff" />
+                    <span className={style.title}>文字サイズ</span>
+                    <InputValue className={style.styleInput} value={value.size} item={currentValue} nameKey="size" placeholder="1rem" />
+                    <span className={style.title}>太字</span>
+                    <InputBoolean checked={value.weight} item={currentValue} nameKey="weight" />
+                </div>
+            }
+            {editable && ui.editValueStyle && <div className={style.preview}><ValueView editable={false} values={[value]} index={0} /></div>}
         </div>
     </div>;
 }));

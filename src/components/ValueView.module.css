@@ -35,3 +35,19 @@
     background: #c00;
     font-size: .5rem;
 }
+
+.title {
+    color: #fff;
+}
+
+.style {
+    color: #fff;
+}
+
+.styleInput {
+    width: 5em;
+}
+
+.preview {
+    border-bottom: 1px dotted #fff;
+}
