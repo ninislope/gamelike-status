@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, Provider } from "mobx-react";
 import * as style from "./TypeValuesView.module.css";
 import { injectSafe } from "../injectSafe";
 import { SectionSelectorsView } from "./SectionSelectorsView";
@@ -16,7 +16,11 @@ export const TypeValuesView = injectSafe("store")(observer<React.SFC<{store: Sto
         </div>
         <div className={style.main}>
             <div><ValueSelectorsView values={typeValueSection ? typeValueSection.values : undefined} sectionIndex={store.ui.section} /></div>
-            <div><ValueDetailView value={typeValueSection ? typeValueSection.value(store.ui.valueBySection(store.ui.section)) : undefined} /></div>
+            <div>
+                <Provider character={undefined}>
+                    <ValueDetailView value={typeValueSection ? typeValueSection.value(store.ui.valueBySection(store.ui.section)) : undefined} />
+                </Provider>
+            </div>
         </div>
     </div>;
 }));

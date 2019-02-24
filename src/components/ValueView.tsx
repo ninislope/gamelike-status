@@ -9,12 +9,14 @@ import { UI } from "../Store/UI";
 import { ManipulateButtons } from "./ManipulateButtons";
 import { InputValue } from "./InputValue";
 import { InputBoolean } from "./InputBoolean";
+import { Character } from "../Store/Character";
 
-export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI}>>(({values, index, typeValue, editable, ui}) => {
+export const ValueView = injectSafe("ui")(injectSafe("character")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI; character?: Character}>>(({values, index, typeValue, editable, ui, character}) => {
     const currentValue = values[index];
     const refValue = typeValue && typeValue.valueByName(currentValue.name, currentValue.value);
     const value = refValue ? currentValue.withReference(refValue) : currentValue;
     if (editable == undefined) editable = ui.editable;
+    const initialValue = value.ratioView && character && typeValue && typeValue.name ? character.initialValue(typeValue.name, value.name) : undefined;
 
     return <div className={style.wrapper}>
         <div onClick={() => ui.modal}>
@@ -29,12 +31,20 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
                         <InputValue className={style.valueLabelInput} value={value.value} item={currentValue} nameKey="value" />
                     </span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
+                    {
+                        value.ratioView && initialValue &&
+                        <span className={style.ratio}>{value.ratio(Number(initialValue.value))}</span>
+                    }
                 </span> :
                 value.value != undefined && value.value !== "" &&
                 <span className={style.valueLabel} style={value.valueStyle}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>{value.value}</span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
+                    {
+                        value.ratioView && initialValue &&
+                        <span className={style.ratio}>{value.ratio(Number(initialValue.value))}</span>
+                    }
                 </span>
             }
             <TagsView tags={value.tags} editable={false} />
@@ -50,7 +60,7 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
                     <InputBoolean checked={value.weight} item={currentValue} nameKey="weight" />
                 </div>
             }
-            {editable && ui.editValueStyle && <div className={style.preview}><ValueView editable={false} values={[value]} index={0} /></div>}
+            {editable && ui.editValueStyle && <div className={style.preview}><ValueView editable={false} values={[currentValue]} typeValue={typeValue} index={0} /></div>}
         </div>
     </div>;
-}));
+})));

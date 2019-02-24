@@ -21,4 +21,19 @@ export class Character {
     }
 
     period(index: number) { return this.periods[index] as Period | undefined; }
+
+    initialValue(sectionName: string, valueName: string) {
+        for (const period of this.periods) {
+            let section = period.sections.find(section => section.name === sectionName);
+            if (!section) {
+                for (const page of period.pages) {
+                    section = page.sections.find(section => section.name === sectionName);
+                    if (section) break;
+                }
+            }
+            if (!section) continue;
+            const value = section.values.find(value => value.name === valueName);
+            if (value) return value;
+        }
+    }
 }

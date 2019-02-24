@@ -1,5 +1,6 @@
 import { action, observable, computed } from "mobx";
 
+export type RatioView = "%" | "1";
 export type StyleFor = "value" | "name";
 
 export interface IValue {
@@ -10,6 +11,7 @@ export interface IValue {
     summary?: string;
     description?: string;
     tags?: string[];
+    ratioView?: RatioView;
     color?: string;
     size?: string;
     weight?: boolean;
@@ -28,6 +30,7 @@ export class Value implements IValue {
     @observable summary?: string;
     @observable description?: string;
     @observable tags: string[] = [];
+    @observable ratioView?: RatioView;
     @observable color?: string;
     @observable size?: string;
     @observable weight?: boolean;
@@ -41,6 +44,7 @@ export class Value implements IValue {
         this.summary = props.summary;
         this.description = props.description;
         if (props.tags) this.tags = props.tags;
+        this.ratioView = props.ratioView;
         this.color = props.color;
         this.size = props.size;
         this.weight = props.weight;
@@ -81,6 +85,18 @@ export class Value implements IValue {
         return this.styleFor !== "name" ? this.style : {};
     }
 
+    ratio(value: number) {
+        const rate = Number(this.value) / value;
+        if (this.ratioView === "%") {
+            const value = Math.round(rate * 100);
+            return value === 100 ? "" : `${value}%`;
+        } else if (this.ratioView === "1") {
+            const value = Math.round(rate * 10) / 10;
+            return value === 1 ? "" : `${value}倍`;
+        }
+        return "";
+    }
+
     withReference(refValue: IValue) {
         return new Value({
             name: this.name,
@@ -90,6 +106,7 @@ export class Value implements IValue {
             summary: this.summary || refValue.summary,
             description: this.description || refValue.description,
             tags: this.tags.length ? this.tags : refValue.tags,
+            ratioView: this.ratioView || refValue.ratioView,
             color: this.color || refValue.color,
             size: this.size || refValue.size,
             weight: this.weight || refValue.weight,

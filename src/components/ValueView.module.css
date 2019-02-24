@@ -30,6 +30,19 @@
 .postValue {
 }
 
+.ratio {
+    color: #fc6;
+    font-size: .8rem;
+}
+
+.ratio:before {
+    content: "(";
+}
+
+.ratio:after {
+    content: ")";
+}
+
 .noRefWarn {
     color: #fff;
     background: #c00;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, Provider } from "mobx-react";
 import { Character } from "../Store/Character";
 import * as style from "./CharacterView.module.css";
 import { PeriodSelectorsView } from "./PeriodSelectorsView";
@@ -18,7 +18,9 @@ export const CharacterView = injectSafe("ui")(observer<React.SFC<{character: Cha
             }
         </div>
         <div className={style.status}>
-            <StatusView character={character} />
+            <Provider character={character}>
+                <StatusView character={character} />
+            </Provider>
         </div>
     </div>
 ));

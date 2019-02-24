@@ -67,6 +67,12 @@ export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value
                     <label><input type="radio" checked={value.styleFor === "name"} onClick={() => value.styleFor = "name"} />名前のみ</label>
                     <label><input type="radio" checked={value.styleFor === "value"} onClick={() => value.styleFor = "value"} />値のみ</label>
                 </div>
+                <div>
+                    <div className={style.title}>初期値からの変化率を表示</div>
+                    <label><input type="radio" checked={!value.ratioView} onClick={() => value.styleFor = undefined} />なし</label>
+                    <label><input type="radio" checked={value.ratioView === "%"} onClick={() => value.ratioView = "%"} />%表記</label>
+                    <label><input type="radio" checked={value.ratioView === "1"} onClick={() => value.ratioView = "1"} />倍率表記</label>
+                </div>
             </div>
         }
         {
