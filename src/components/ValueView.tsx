@@ -17,6 +17,7 @@ export const ValueView = injectSafe("ui")(injectSafe("character")(observer<React
     const value = refValue ? currentValue.withReference(refValue) : currentValue;
     if (editable == undefined) editable = ui.editable;
     const initialValue = value.ratioView && character && typeValue && typeValue.name ? character.initialValue(typeValue.name, value.name) : undefined;
+    const ratio = initialValue && value.ratio(Number(initialValue.value));
 
     return <div className={style.wrapper}>
         <div onClick={() => ui.modal}>
@@ -31,20 +32,14 @@ export const ValueView = injectSafe("ui")(injectSafe("character")(observer<React
                         <InputValue className={style.valueLabelInput} value={value.value} item={currentValue} nameKey="value" />
                     </span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
-                    {
-                        value.ratioView && initialValue &&
-                        <span className={style.ratio}>{value.ratio(Number(initialValue.value))}</span>
-                    }
+                    {ratio && <span className={style.ratio}>{ratio}</span>}
                 </span> :
                 value.value != undefined && value.value !== "" &&
                 <span className={style.valueLabel} style={value.valueStyle}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>{value.value}</span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
-                    {
-                        value.ratioView && initialValue &&
-                        <span className={style.ratio}>{value.ratio(Number(initialValue.value))}</span>
-                    }
+                    {ratio && <span className={style.ratio}>{ratio}</span>}
                 </span>
             }
             <TagsView tags={value.tags} editable={false} />

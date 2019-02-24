@@ -89,12 +89,12 @@ export class Value implements IValue {
         const rate = Number(this.value) / value;
         if (this.ratioView === "%") {
             const value = Math.round(rate * 100);
-            return value === 100 ? "" : `${value}%`;
+            return value === 100 ? undefined : `${value}%`;
         } else if (this.ratioView === "1") {
             const value = Math.round(rate * 10) / 10;
-            return value === 1 ? "" : `${value}倍`;
+            return value === 1 ? undefined : `${value}倍`;
         }
-        return "";
+        return undefined;
     }
 
     withReference(refValue: IValue) {
