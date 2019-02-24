@@ -16,7 +16,7 @@ export const PageSelectorsView = injectSafe("ui")(observer<React.SFC<{pages: Pag
         {
             ui.editable && !!previousPeriod && <button onClick={() =>
                 confirm("直前の時期からコピーしますか？") &&
-                pages.push(...previousPeriod.pages.map(page => new Page(page)))
+                pages.push(...previousPeriod.pages.map(page => Page.fromJSON(page)))
                 }>直前の時期から全ページコピー</button>}
     </div>
 }));
