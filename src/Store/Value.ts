@@ -12,6 +12,7 @@ export interface IValue {
     tags?: string[];
     color?: string;
     size?: string;
+    weight?: boolean;
 }
 
 export class Value implements IValue {
@@ -28,6 +29,7 @@ export class Value implements IValue {
     @observable tags: string[] = [];
     @observable color?: string;
     @observable size?: string;
+    @observable weight?: boolean;
 
     constructor(props: IValue) {
         this.name = props.name;
@@ -39,6 +41,7 @@ export class Value implements IValue {
         if (props.tags) this.tags = props.tags;
         this.color = props.color;
         this.size = props.size;
+        this.weight = props.weight;
     }
 
     @computed get fullName() {
@@ -58,6 +61,15 @@ export class Value implements IValue {
         }
     }
 
+    @computed get style() {
+        const style: React.CSSProperties = {};
+        if (this.color) style.color = this.color;
+        if (this.size) style.fontSize = this.size;
+        if (this.weight) style.fontWeight = "bold";
+
+        return style;
+    }
+
     withReference(refValue: Value) {
         return new Value({
             name: this.name,
@@ -69,6 +81,7 @@ export class Value implements IValue {
             tags: this.tags.length ? this.tags : refValue.tags,
             color: this.color || refValue.color,
             size: this.size || refValue.size,
+            weight: this.weight  || refValue.weight,
         });
     }
 }

@@ -6,6 +6,8 @@ import { TagsView } from "./TagsView";
 import { injectSafe } from "../injectSafe";
 import { UI } from "../Store/UI";
 import { InputValue } from "./InputValue";
+import { InputBoolean } from "./InputBoolean";
+import { ValueView } from "./ValueView";
 
 export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value | undefined; ui: UI}>>(({value: value, ui}) =>
     value ?
@@ -49,6 +51,23 @@ export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value
             (ui.editable || Boolean(value.description)) &&
             <div className={style.description}>
                 {ui.editable ? <textarea className={style.descriptionInput} value={value.description || ""} onChange={({target}) => value.description = target.value} /> : value.description}
+            </div>
+        }
+        {
+            ui.editable && <div>
+                <span className={style.title}>色(CSS)</span>
+                <InputValue item={value} nameKey="color" placeholder="#fff" />
+                <span className={style.title}>文字サイズ(CSS)</span>
+                <InputValue item={value} nameKey="size" placeholder="1rem" />
+                <span className={style.title}>太字</span>
+                <InputBoolean item={value} nameKey="weight" />
+            </div>
+        }
+        {
+            ui.editable &&
+            <div>
+                <span className={style.title}>プレビュー</span>
+                <ValueView editable={false} values={[value]} index={0} />
             </div>
         }
     </div> :

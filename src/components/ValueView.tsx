@@ -9,18 +9,19 @@ import { UI } from "../Store/UI";
 import { ManipulateButtons } from "./ManipulateButtons";
 import { InputValue } from "./InputValue";
 
-export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; ui: UI}>>(({values, index, typeValue, ui}) => {
+export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI}>>(({values, index, typeValue, editable, ui}) => {
     const currentValue = values[index];
     const refValue = typeValue && typeValue.valueByName(currentValue.name, currentValue.value);
     const value = refValue ? currentValue.withReference(refValue) : currentValue;
+    if (editable == undefined) editable = ui.editable;
 
     return <div className={style.wrapper}>
         <div onClick={() => ui.modal}>
-            <span className={style.name}>
-                {ui.editable ? <InputValue className={style.nameInput} value={value.name} item={currentValue} nameKey="name" /> : value.name}
+            <span className={style.name} style={value.style}>
+                {editable ? <InputValue className={style.nameInput} value={value.name} item={currentValue} nameKey="name" /> : value.name}
             </span>
             {
-                ui.editable ?
+                editable ?
                 <span className={style.valueLabel}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>
@@ -29,15 +30,15 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
                 </span> :
                 value.value != undefined && value.value !== "" &&
-                <span className={style.valueLabel}>
+                <span className={style.valueLabel} style={value.style}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>{value.value}</span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
                 </span>
             }
             <TagsView tags={value.tags} editable={false} />
-            {ui.editable && !refValue && <span className={style.noRefWarn}>参照先ステートなし</span>}
-            {ui.editable && <ManipulateButtons items={values} nameKey="fullName" index={index} typeName="値" />}
+            {editable && !refValue && <span className={style.noRefWarn}>参照先ステートなし</span>}
+            {editable && <ManipulateButtons items={values} nameKey="fullName" index={index} typeName="値" />}
         </div>
     </div>;
 }));
