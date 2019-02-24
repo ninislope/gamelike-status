@@ -8,6 +8,7 @@ import { injectSafe } from "../injectSafe";
 import { Store } from "../Store";
 import { Value } from "../Store/Value";
 import { ManipulateButtons } from "./ManipulateButtons";
+import { InputValue } from "./InputValue";
 
 export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Section[]; index: number; store: Store}>>(({sections, index, store}) => {
     const section = sections[index];
@@ -24,12 +25,12 @@ export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Sec
         }
         {
             ui.editable ?
-            <div className={style.name}><input value={section.name || ""} onChange={({target}) => section.name = target.value} placeholder="名前" /></div> :
+            <div className={style.name}><InputValue item={section} nameKey="name" placeholder="名前" /></div> :
             Boolean(section.name) && <div className={style.name}>{section.name}</div>
         }
         {
             ui.editable ?
-            <div className={style.description}><input value={section.description || ""} onChange={({target}) => section.description = target.value} placeholder="説明" /></div> :
+            <div className={style.description}><InputValue item={section} nameKey="description" placeholder="説明" /></div> :
             Boolean(section.description) && <div className={style.description}>{section.description}</div>
         }
         {

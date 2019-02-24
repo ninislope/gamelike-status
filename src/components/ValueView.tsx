@@ -7,6 +7,7 @@ import { TagsView } from "./TagsView";
 import { Section } from "../Store/Section";
 import { UI } from "../Store/UI";
 import { ManipulateButtons } from "./ManipulateButtons";
+import { InputValue } from "./InputValue";
 
 export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; ui: UI}>>(({values, index, typeValue, ui}) => {
     const currentValue = values[index];
@@ -16,14 +17,14 @@ export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; i
     return <div className={style.wrapper}>
         <div onClick={() => ui.modal}>
             <span className={style.name}>
-                {ui.editable ? <input className={style.nameInput} value={value.name || ""} onChange={({target}) => currentValue.name = target.value} /> : value.name}
+                {ui.editable ? <InputValue className={style.nameInput} value={value.name} item={currentValue} nameKey="name" /> : value.name}
             </span>
             {
                 ui.editable ?
                 <span className={style.valueLabel}>
                     {Boolean(value.preValue) && <span className={style.value}>{value.preValue}</span>}
                     <span className={style.value}>
-                        <input className={style.valueLabelInput} value={value.value || ""} onChange={({target}) => currentValue.value = target.value} />
+                        <InputValue className={style.valueLabelInput} value={value.value} item={currentValue} nameKey="value" />
                     </span>
                     {Boolean(value.postValue) && <span className={style.value}>{value.postValue}</span>}
                 </span> :

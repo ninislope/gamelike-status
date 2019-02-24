@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { UI } from "../Store/UI";
 import { Section } from "../Store/Section";
 import { ManipulateButtons } from "./ManipulateButtons";
+import { InputValue } from "./InputValue";
 
 export const SectionSelectorsView = injectSafe("ui")(observer<React.SFC<{sections: Section[]; ui: UI}>>(({sections, ui}) =>
     <div className={style.wrapper}>
@@ -15,7 +16,7 @@ export const SectionSelectorsView = injectSafe("ui")(observer<React.SFC<{section
                     {
                         ui.editable ?
                         <>
-                            <input className={style.input} value={section.name} onChange={({target}) => section.name = target.value}/>
+                            <InputValue className={style.input} item={section} nameKey="name" />
                             <ManipulateButtons items={sections} index={index} nameKey="name" typeName="セクション" direction="horizontal" after={(afterIndex) => ui.section = afterIndex} />
                         </> :
                         section.name

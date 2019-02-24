@@ -6,6 +6,7 @@ import { UI } from "../Store/UI";
 import { Page } from "../Store/Page";
 import { injectSafe } from "../injectSafe";
 import { ManipulateButtons } from "./ManipulateButtons";
+import { InputValue } from "./InputValue";
 
 export const PageSelectorView = injectSafe("ui")(observer<React.SFC<{ui: UI; index: number; pages: Page[]}>>(({pages, ui, index}) => {
     const page = pages[index];
@@ -14,7 +15,7 @@ export const PageSelectorView = injectSafe("ui")(observer<React.SFC<{ui: UI; ind
         {
             ui.editable ?
             <>
-                <input className={style.input} value={page.name || ""} onChange={({target}) => page.name = target.value} />
+                <InputValue className={style.input} item={page} nameKey="name" />
                 <ManipulateButtons items={pages} nameKey="name" index={index} typeName="ページ" after={(afterIndex) => ui.page = afterIndex} direction="horizontal" />
             </> :
             page.name ? page.name : "*"
