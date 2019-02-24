@@ -61,3 +61,20 @@
     width: 100%;
     height: 5em;
 }
+
+.style {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.styleInput {
+    width: 6em;
+}
+
+.preview {
+    border-bottom: 1px solid #fff;
+}
+
+.previewValue {
+    color: #fff;
+}

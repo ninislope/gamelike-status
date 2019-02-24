@@ -1,6 +1,6 @@
 import { action, observable, computed } from "mobx";
 
-export type ValueType = "add" | "remove" | "change";
+export type StyleFor = "value" | "name";
 
 export interface IValue {
     name: string;
@@ -13,6 +13,7 @@ export interface IValue {
     color?: string;
     size?: string;
     weight?: boolean;
+    styleFor?: StyleFor;
 }
 
 export class Value implements IValue {
@@ -30,6 +31,7 @@ export class Value implements IValue {
     @observable color?: string;
     @observable size?: string;
     @observable weight?: boolean;
+    @observable styleFor?: StyleFor;
 
     constructor(props: IValue) {
         this.name = props.name;
@@ -42,6 +44,7 @@ export class Value implements IValue {
         this.color = props.color;
         this.size = props.size;
         this.weight = props.weight;
+        this.styleFor = props.styleFor;
     }
 
     @computed get fullName() {
@@ -61,7 +64,7 @@ export class Value implements IValue {
         }
     }
 
-    @computed get style() {
+    @computed private get style() {
         const style: React.CSSProperties = {};
         if (this.color) style.color = this.color;
         if (this.size) style.fontSize = this.size;
@@ -70,7 +73,15 @@ export class Value implements IValue {
         return style;
     }
 
-    withReference(refValue: Value) {
+    @computed get nameStyle() {
+        return this.styleFor !== "value" ? this.style : {};
+    }
+
+    @computed get valueStyle() {
+        return this.styleFor !== "name" ? this.style : {};
+    }
+
+    withReference(refValue: IValue) {
         return new Value({
             name: this.name,
             value: this.value != undefined && this.value !== "" ? this.value : refValue.value,
@@ -81,7 +92,8 @@ export class Value implements IValue {
             tags: this.tags.length ? this.tags : refValue.tags,
             color: this.color || refValue.color,
             size: this.size || refValue.size,
-            weight: this.weight  || refValue.weight,
+            weight: this.weight || refValue.weight,
+            styleFor: this.styleFor || refValue.styleFor,
         });
     }
 }

@@ -54,20 +54,27 @@ export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value
             </div>
         }
         {
-            ui.editable && <div>
+            ui.editable && <div className={style.style}>
                 <span className={style.title}>色(CSS)</span>
-                <InputValue item={value} nameKey="color" placeholder="#fff" />
+                <InputValue className={style.styleInput} item={value} nameKey="color" placeholder="#fff" />
                 <span className={style.title}>文字サイズ(CSS)</span>
-                <InputValue item={value} nameKey="size" placeholder="1rem" />
+                <InputValue className={style.styleInput} item={value} nameKey="size" placeholder="1rem" />
                 <span className={style.title}>太字</span>
                 <InputBoolean item={value} nameKey="weight" />
+                <div>
+                    <div className={style.title}>スタイルの適用範囲</div>
+                    <label><input type="radio" checked={!value.styleFor} onClick={() => value.styleFor = undefined} />全て</label>
+                    <label><input type="radio" checked={value.styleFor === "name"} onClick={() => value.styleFor = "name"} />名前のみ</label>
+                    <label><input type="radio" checked={value.styleFor === "value"} onClick={() => value.styleFor = "value"} />値のみ</label>
+                </div>
             </div>
         }
         {
             ui.editable &&
-            <div>
-                <span className={style.title}>プレビュー</span>
-                <ValueView editable={false} values={[value]} index={0} />
+            <div className={style.preview}>
+                <div className={style.title}>プレビュー</div>
+                <div className={style.previewValue}><label>プレビュー値<InputValue className={style.valueLabelInput} item={ui} nameKey="previewValue" /></label></div>
+                <ValueView editable={false} values={[value.withReference({name: value.name, value: ui.previewValue})]} index={0} />
             </div>
         }
     </div> :
