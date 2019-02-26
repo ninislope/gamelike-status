@@ -9,7 +9,7 @@ export class Period {
             name: obj.name,
             sections: (obj.sections || []).map(Section.fromJSON),
             pages: (obj.pages || []).map(Page.fromJSON),
-            images: obj.images,
+            visuals: (obj.visuals || []).map(Visual.fromJSON),
         });
     }
 
@@ -18,12 +18,12 @@ export class Period {
     @observable pages: Page[] = [];
     @observable visuals: Visual[] = [];
 
-    constructor(props?: {name?: string; sections?: Section[]; pages?: Page[]; images?: Visual[]}) {
+    constructor(props?: {name?: string; sections?: Section[]; pages?: Page[]; visuals?: Visual[]}) {
         if (props) {
             this.name = props.name;
             if (props.sections) this.sections = props.sections;
             if (props.pages) this.pages = props.pages;
-            if (props.images) this.visuals = props.images;
+            if (props.visuals) this.visuals = props.visuals;
         }
     }
 

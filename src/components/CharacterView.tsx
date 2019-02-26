@@ -6,6 +6,7 @@ import { PeriodSelectorsView } from "./PeriodSelectorsView";
 import { UI } from "../Store/UI";
 import { StatusView } from "./StatusView";
 import { injectSafe } from "../injectSafe";
+import { VisualsView } from "./VisualsView";
 
 export const CharacterView = injectSafe("ui")(observer<React.SFC<{character: Character; ui: UI}>>(({character, ui}) =>
     <div className={style.wrapper}>
@@ -13,9 +14,7 @@ export const CharacterView = injectSafe("ui")(observer<React.SFC<{character: Cha
             <PeriodSelectorsView character={character} ui={ui} />
         </div>
         <div className={style.visual}>
-            {
-                character.period(ui.period) && character.period(ui.period)!.visual(0) ? <img src={character.period(ui.period)!.visual(0)!.filename} /> : <></>
-            }
+            <VisualsView character={character} />
         </div>
         <div className={style.status}>
             <Provider character={character}>

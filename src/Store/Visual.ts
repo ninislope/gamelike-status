@@ -6,11 +6,13 @@ export class Visual {
     }
 
     @observable filename?: string;
+    @observable url?: string;
     @observable name?: string;
 
-    constructor(props?: {filename?: string; name?: string}) {
+    constructor(props?: {filename?: string; url?: string; name?: string}) {
         if (props) {
             if (props.filename) this.filename = props.filename;
+            if (props.url) this.url = props.url;
             if (props.name) this.name = props.name;
         }
     }

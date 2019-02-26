@@ -1,0 +1,48 @@
+.wrapper {
+    height: 100%;
+    position: relative;
+}
+
+.imageField {
+    height: 100%;
+}
+
+.image {
+    height: 100%;
+}
+
+.uploader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uploaderMessage {
+
+}
+
+.selectors {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.selector {
+    cursor: pointer;
+    width: max-content;
+    padding: .3em .6em;
+    color: #fff;
+    background: rgba(51, 51, 51, 0.7);
+    border: 1px solid rgba(51, 51, 51, 0.7);
+    margin: .2em .1em;
+}
+
+.active {
+    color: #333;
+    background: rgba(255, 255, 255, 0.7);
+}

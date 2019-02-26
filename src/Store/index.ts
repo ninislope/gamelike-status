@@ -71,4 +71,20 @@ export class Store {
             if (data) this.setJSON(data);
         }
     }
+
+    @action async tryPutImage(filename: string, data: Blob) {
+        if (!this.dataId) return; // no
+        this.loginUid = await Firebase.getUid();
+        if (this.editableUid) {
+            return Firebase.putImage(this.loginUid!, this.dataId, filename, data);
+        }
+    }
+
+    @action async tryDeleteImage(filename: string) {
+        if (!this.dataId) return; // no
+        this.loginUid = await Firebase.getUid();
+        if (this.editableUid) {
+            return Firebase.deleteImage(this.loginUid!, this.dataId, filename);
+        }
+    }
 }

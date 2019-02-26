@@ -44,6 +44,10 @@ export class Firebase {
         return firebase.storage().ref(`/user/${uid}/store/${id}`).child(file);
     }
 
+    static storeImageRef(uid: string, id: string, file: string) {
+        return firebase.storage().ref(`/user/${uid}/store/${id}/image`).child(file);
+    }
+
     static async save(uid: string, id: string, data: object) {
         try {
             await this.storeRef(uid, id, "data.json").putString(JSON.stringify(data));
@@ -68,5 +72,17 @@ export class Firebase {
             alert(e.message);
             return undefined;
         }
+    }
+
+    static async putImage(uid: string, id: string, filename: string, data: Blob) {
+        const ref = this.storeImageRef(uid, id, filename);
+        await ref.put(data);
+        const url = await ref.getDownloadURL();
+        return url as string;
+    }
+
+    static async deleteImage(uid: string, id: string, filename: string) {
+        const ref = this.storeImageRef(uid, id, filename);
+        await ref.delete();
     }
 }
