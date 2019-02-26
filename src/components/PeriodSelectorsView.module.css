@@ -3,6 +3,7 @@
     flex-direction: column;
     background: #333;
     height: 100%;
+    overflow: auto;
 }
 
 .title {
