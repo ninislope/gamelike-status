@@ -16,7 +16,7 @@ export interface IUI {
 
 export class UI implements IUI {
     @observable character = 0;
-    @observable period = 0;
+    @observable period = -1;
     @observable page = 0;
     @observable section = -1;
     @observable visual = 0;
