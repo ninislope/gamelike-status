@@ -81,8 +81,8 @@ export class Firebase {
         return url as string;
     }
 
-    static async deleteImage(uid: string, id: string, filename: string) {
-        const ref = this.storeImageRef(uid, id, filename);
+    static async deleteImage(url: string) {
+        const ref = firebase.storage().refFromURL(url);
         await ref.delete();
     }
 }

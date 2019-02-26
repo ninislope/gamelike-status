@@ -26,6 +26,8 @@ export class UI implements IUI {
     @observable editable = false;
     @observable editValueStyle = false;
     @observable visualUploading = false;
+    @observable saveDeleteVisualUrls: string[] = [];
+    @observable cancelDeleteVisualUrls: string[] = [];
     @observable modal: JSX.Element | undefined = undefined;
 
     constructor(props?: IUI) {

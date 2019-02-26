@@ -50,19 +50,13 @@ export const VisualsView = injectSafe("store")(observer<React.SFC<{character: Ch
                                 const url = await store.tryPutImage(filename, file!);
                                 if (!url) throw "no url";
                                 if (index === 0 && currentVisual) {
-                                    if (currentVisual.filename) {
-                                        try {
-                                            await store.tryDeleteImage(currentVisual.filename);
-                                        } catch (e) {
-                                            console.error(e);
-                                            // ignore けせなくてもいい
-                                        }
-                                    }
+                                    if (currentVisual.filename) ui.saveDeleteVisualUrls.push(currentVisual.filename);
                                     currentVisual.filename = filename;
                                     currentVisual.url = url;
                                 } else {
                                     visuals.push(new Visual({filename, url, name: file.name}));
                                 }
+                                ui.cancelDeleteVisualUrls.push(url);
                                 ++index;
                             }
                         } catch (e) {
@@ -100,12 +94,7 @@ export const VisualsView = injectSafe("store")(observer<React.SFC<{character: Ch
                                 typeName="ビジュアル"
                                 after={(afterIndex) => ui.visual = afterIndex}
                                 afterDelete={async (deletedVisual) => {
-                                    try {
-                                        if (deletedVisual.filename) await store.tryDeleteImage(deletedVisual.filename);
-                                    } catch (e) {
-                                        console.error(e);
-                                        // ignore けせなくてもいい
-                                    }
+                                    if (deletedVisual.url) ui.saveDeleteVisualUrls.push(deletedVisual.url);
                                 }}
                                 />
                         }

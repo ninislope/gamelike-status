@@ -1,4 +1,4 @@
-import { action, observable, toJS } from "mobx";
+import { action, observable, toJS, computed } from "mobx";
 import { Character } from "./Character";
 import { UI } from "./UI";
 import { Section } from "./Section";
@@ -55,13 +55,40 @@ export class Store {
         }
     }
 
+    @computed get allVisualUrls() {
+        return this.characters.flatMap(character => character.periods).flatMap(period => period.visuals).map(visual => visual.url).filter(url => url) as string[];
+    }
+
+    @computed get allVisualUrlsHash() {
+        const hash: {[url: string]: true} = {};
+        for (const url of this.allVisualUrls) hash[url] = true;
+        return hash;
+    }
+
     @action async trySave() {
         if (!this.dataId) return; // no
         this.loginUid = await Firebase.getUid();
         if (this.editableUid) {
             if (Firebase.save(this.loginUid!, this.dataId, this.toJSON())) {
+                const existUrlsHash = this.allVisualUrlsHash;
+                // ignore errors
+                await Promise.all(this.ui.saveDeleteVisualUrls.filter(url => !existUrlsHash[url]).map(url => Firebase.deleteImage(url).catch((e) => undefined)));
+                this.ui.saveDeleteVisualUrls = [];
+                this.ui.cancelDeleteVisualUrls = [];
                 this.ui.editable = false;
             }
+        }
+    }
+
+    @action async cancel() {
+        if (!this.dataId) return; // no
+        this.loginUid = await Firebase.getUid();
+        if (this.editableUid) {
+            // ignore errors
+            await Promise.all(this.ui.cancelDeleteVisualUrls.map(url => Firebase.deleteImage(url).catch((e) => undefined)));
+            this.ui.saveDeleteVisualUrls = [];
+            this.ui.cancelDeleteVisualUrls = [];
+            setImmediate(() => location.href = location.href);
         }
     }
 
@@ -77,14 +104,6 @@ export class Store {
         this.loginUid = await Firebase.getUid();
         if (this.editableUid) {
             return Firebase.putImage(this.loginUid!, this.dataId, filename, data);
-        }
-    }
-
-    @action async tryDeleteImage(filename: string) {
-        if (!this.dataId) return; // no
-        this.loginUid = await Firebase.getUid();
-        if (this.editableUid) {
-            return Firebase.deleteImage(this.loginUid!, this.dataId, filename);
         }
     }
 }
