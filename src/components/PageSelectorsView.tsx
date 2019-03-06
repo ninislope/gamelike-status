@@ -14,9 +14,24 @@ export const PageSelectorsView = injectSafe("ui")(observer<React.SFC<{pages: Pag
         {pages.map((_, index) => <PageSelectorView pages={pages} index={index} />)}
         {ui.editable && <AddPageView pages={pages} />}
         {
-            ui.editable && !!previousPeriod && <button onClick={() =>
-                confirm("直前の時期からコピーしますか？") &&
-                pages.push(...previousPeriod.pages.map(page => Page.fromJSON(page)))
-                }>直前の時期から全ページコピー</button>}
+            ui.editable && !!previousPeriod &&
+            <>
+                <button onClick={() => {
+                    const name = prompt("ページ名を指定して下さい。");
+                    if (!name) return;
+                    const page = previousPeriod.pages.find(page => page.name === name);
+                    if (!page) {
+                        alert(`ページ[${name}]は存在しませんでした。コピーを中止します。`);
+                        return;
+                    }
+                    if (!confirm(`直前の時期からページ[${name}]をコピーしますか？`)) return;
+                    pages.push(Page.fromJSON(page));
+                }}>直前の時期から特定ページをコピー</button>
+                <button onClick={() =>
+                    confirm("直前の時期からコピーしますか？") &&
+                    pages.push(...previousPeriod.pages.map(page => Page.fromJSON(page)))
+                    }>直前の時期から全ページコピー</button>
+            </>
+        }
     </div>
 }));
