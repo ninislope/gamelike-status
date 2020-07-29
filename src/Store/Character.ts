@@ -5,16 +5,19 @@ import { Section } from "./Section";
 export class Character {
     static fromJSON(obj: any) {
         return new Character({
+            name: obj.name,
             sections: (obj.sections || []).map(Section.fromJSON),
             periods: (obj.periods || []).map(Period.fromJSON),
         });
     }
 
+    @observable name?: string;
     @observable sections: Section[] = [];
     @observable periods: Period[] = [];
 
-    constructor(props?: {sections?: Section[]; periods?: Period[]}) {
+    constructor(props?: {name?: string; sections?: Section[]; periods?: Period[]}) {
         if (props) {
+            if (props.name) this.name = name;
             if (props.sections) this.sections = props.sections;
             if (props.periods) this.periods = props.periods;
         }
