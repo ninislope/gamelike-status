@@ -7,3 +7,7 @@
     grid-template: 1fr 4.5em / 100%;
     overflow: auto;
 }
+
+.addMessage {
+    color: #fff;
+}
