@@ -88,6 +88,7 @@ export class Store {
             await Promise.all(this.ui.cancelDeleteVisualUrls.map(url => Firebase.deleteImage(url).catch((e) => undefined)));
             this.ui.saveDeleteVisualUrls = [];
             this.ui.cancelDeleteVisualUrls = [];
+            // eslint-disable-next-line no-self-assign
             setImmediate(() => location.href = location.href);
         }
     }

@@ -35,9 +35,9 @@ export const VisualsView = injectSafe("store")(observer<React.SFC<{character: Ch
                 ui.editable &&
                 <Dropzone
                     accept="image/jpeg, image/png, image/gif"
-                    onDrop={async (files, rejectedFiles) => {
-                        if (rejectedFiles.length) {
-                            alert(`ファイル ${rejectedFiles.map(file => `[${file.name}]`).join(", ")} は許可されない形式です`);
+                    onDrop={async (files, fileRejections) => {
+                        if (fileRejections.length) {
+                            alert(`ファイル ${fileRejections.map(fr => `[${fr.file.name}]`).join(", ")} は許可されない形式です`);
                             return;
                         }
                         if (!files.length) return;
@@ -45,10 +45,10 @@ export const VisualsView = injectSafe("store")(observer<React.SFC<{character: Ch
                         let index = 0;
                         let file: File;
                         try {
-                            while (file = files[index]) {
+                            while ((file = files[index])) {
                                 const filename = `${uuidv4()}.${exts[file!.type]}`;
                                 const url = await store.tryPutImage(filename, file!);
-                                if (!url) throw "no url";
+                                if (!url) throw new Error("no url");
                                 if (index === 0 && currentVisual) {
                                     if (currentVisual.filename) ui.saveDeleteVisualUrls.push(currentVisual.filename);
                                     currentVisual.filename = filename;
@@ -110,7 +110,11 @@ export const VisualsView = injectSafe("store")(observer<React.SFC<{character: Ch
             {
                 ui.editable && !!previousPeriod &&
                 <div className={style.selector}>
-                    <button disabled={ui.visualUploading} onClick={() => confirm("直前の時期からコピーしますか？") && visuals.push(...previousPeriod.visuals.map(visual => new Visual(visual)))}>直前の時期から全てコピー</button>
+                    <button
+                        disabled={ui.visualUploading}
+                         // eslint-disable-next-line no-restricted-globals
+                        onClick={() => confirm("直前の時期からコピーしますか？") && visuals.push(...previousPeriod.visuals.map(visual => new Visual(visual)))}
+                    >直前の時期から全てコピー</button>
                 </div>
             }
         </div>

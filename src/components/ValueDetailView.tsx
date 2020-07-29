@@ -9,7 +9,7 @@ import { InputValue } from "./InputValue";
 import { InputBoolean } from "./InputBoolean";
 import { ValueView } from "./ValueView";
 
-export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value | undefined; ui: UI}>>(({value: value, ui}) =>
+export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value | undefined; ui: UI}>>(({value, ui}) =>
     value ?
     <div className={style.wrapper}>
         <span className={style.name}>
