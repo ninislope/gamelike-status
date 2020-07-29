@@ -1,0 +1,22 @@
+.characterSelectors {
+    display: flex;
+    background: #999;
+    border-width: 0 1px .5em 1px;
+    border-style: solid;
+    border-color: #999;
+    width: 55em;
+}
+
+.charactorSelector {
+    padding: .8em;
+    border: none;
+    color: #fff;
+    background: #666;
+    min-width: 6em;
+    margin: 0 .3em;
+}
+
+.charactorSelector.selected {
+    color: #000;
+    background: #fff;
+}

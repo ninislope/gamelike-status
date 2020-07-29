@@ -80,7 +80,7 @@ export const ValueDetailView = injectSafe("ui")(observer<React.SFC<{value: Value
             <div className={style.preview}>
                 <div className={style.title}>プレビュー</div>
                 <div className={style.previewValue}><label>プレビュー値<InputValue className={style.valueLabelInput} item={ui} nameKey="previewValue" /></label></div>
-                <ValueView editable={false} values={[value.withReference({name: value.name, value: ui.previewValue})]} index={0} />
+                <ValueView editable={false} character={undefined} values={[value.withReference({name: value.name, value: ui.previewValue})]} index={0} />
             </div>
         }
     </div> :

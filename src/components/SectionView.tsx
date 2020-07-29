@@ -38,7 +38,7 @@ export const SectionView = injectSafe("store")(observer<React.SFC<{sections: Sec
             ui.editable && <label><InputBoolean item={ui} nameKey="editValueStyle" /><span className={style.title}>個別スタイルを編集</span></label>
         }
         {
-            section.values.map((value, index) => <ValueView values={section.values} index={index} typeValue={typeValue} />)
+            section.values.map((value, index) => <ValueView character={store.character(store.ui.character)} values={section.values} index={index} typeValue={typeValue} />)
         }
         {
             ui.editable &&

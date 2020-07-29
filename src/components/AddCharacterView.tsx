@@ -6,7 +6,7 @@ import { Character } from "../Store/Character";
 import { injectSafe } from "../injectSafe";
 
 export const AddCharacterView = injectSafe("ui")(observer<React.SFC<{characters: Character[]; ui: UI}>>(({characters, ui}) =>
-    <div className={style.wrapper}>
+    <div>
         <button onClick={() => characters.push(new Character())}>
             キャラクターを追加
         </button>

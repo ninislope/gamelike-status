@@ -17,9 +17,7 @@ export const TypeValuesView = injectSafe("store")(observer<React.SFC<{store: Sto
         <div className={style.main}>
             <div><ValueSelectorsView values={typeValueSection ? typeValueSection.values : undefined} sectionIndex={store.ui.section} /></div>
             <div>
-                <Provider character={undefined}>
-                    <ValueDetailView value={typeValueSection ? typeValueSection.value(store.ui.valueBySection(store.ui.section)) : undefined} />
-                </Provider>
+                <ValueDetailView value={typeValueSection ? typeValueSection.value(store.ui.valueBySection(store.ui.section)) : undefined} />
             </div>
         </div>
     </div>;

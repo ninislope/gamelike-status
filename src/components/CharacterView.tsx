@@ -17,9 +17,7 @@ export const CharacterView = injectSafe("ui")(observer<React.SFC<{character: Cha
             <VisualsView character={character} />
         </div>
         <div className={style.status}>
-            <Provider character={character}>
-                <StatusView character={character} />
-            </Provider>
+            <StatusView character={character} />
         </div>
     </div>
 ));

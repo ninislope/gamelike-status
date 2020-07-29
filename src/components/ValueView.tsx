@@ -11,7 +11,7 @@ import { InputValue } from "./InputValue";
 import { InputBoolean } from "./InputBoolean";
 import { Character } from "../Store/Character";
 
-export const ValueView = injectSafe("ui")(injectSafe("character")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI; character?: Character}>>(({values, index, typeValue, editable, ui, character}) => {
+export const ValueView = injectSafe("ui")(observer<React.SFC<{values: Value[]; index: number; typeValue?: Section; editable?: boolean; ui: UI; character: Character | undefined}>>(({values, index, typeValue, editable, ui, character}) => {
     const currentValue = values[index];
     const refValue = typeValue && typeValue.valueByName(currentValue.name, currentValue.value);
     const value = refValue ? currentValue.withReference(refValue) : currentValue;
@@ -55,7 +55,7 @@ export const ValueView = injectSafe("ui")(injectSafe("character")(observer<React
                     <InputBoolean checked={value.weight} item={currentValue} nameKey="weight" />
                 </div>
             }
-            {editable && ui.editValueStyle && <div className={style.preview}><ValueView editable={false} values={[currentValue]} typeValue={typeValue} index={0} /></div>}
+            {editable && ui.editValueStyle && <div className={style.preview}><ValueView character={character} editable={false} values={[currentValue]} typeValue={typeValue} index={0} /></div>}
         </div>
     </div>;
-})));
+}));
