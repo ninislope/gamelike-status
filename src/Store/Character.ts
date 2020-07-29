@@ -6,18 +6,21 @@ export class Character {
     static fromJSON(obj: any) {
         return new Character({
             name: obj.name,
+            color: obj.color,
             sections: (obj.sections || []).map(Section.fromJSON),
             periods: (obj.periods || []).map(Period.fromJSON),
         });
     }
 
     @observable name?: string;
+    @observable color?: string;
     @observable sections: Section[] = [];
     @observable periods: Period[] = [];
 
-    constructor(props?: {name?: string; sections?: Section[]; periods?: Period[]}) {
+    constructor(props?: {name?: string; color?: string; sections?: Section[]; periods?: Period[]}) {
         if (props) {
-            if (props.name) this.name = name;
+            if (props.name) this.name = props.name;
+            if (props.color) this.color = props.color;
             if (props.sections) this.sections = props.sections;
             if (props.periods) this.periods = props.periods;
         }
