@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer, IReactComponent } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectSafe } from "../injectSafe";
 import { UI } from "../Store/UI";
 

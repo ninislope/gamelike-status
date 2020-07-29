@@ -9,7 +9,7 @@ import { InputValue } from "./InputValue";
 import { ManipulateButtons } from "./ManipulateButtons";
 import { Character } from "../Store/Character";
 import { Store } from "../Store";
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from 'uuid';
 
 const exts: {[mime: string]: string} = {
     "image/png": "png",

@@ -1,2 +1,6 @@
-export const header: string;
-export const main: string;
+declare const styles: {
+  readonly "header": string;
+  readonly "main": string;
+};
+export = styles;
+
